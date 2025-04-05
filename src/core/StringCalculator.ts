@@ -7,6 +7,11 @@ export class StringCalculator {
     if (!numberString) return 0;
 
     const numbers = this.extractNumbers(numberString);
+    const negativeNumbers = numbers.filter((n) => n < 0);
+
+    if (negativeNumbers.length) {
+      throw new Error("negative number(s) not allowed: " + negativeNumbers);
+    }
     const sum = numbers.reduce((acc, num) => acc + num, 0);
 
     return sum;
@@ -18,7 +23,7 @@ export class StringCalculator {
 
   private getCustomDelimiter(numberString: string): string {
     const delimiterEndIndex = numberString.indexOf(
-      StringCalculator.DELIMITER_PREFIX
+      StringCalculator.DELIMITER_SUFFIX
     );
 
     return numberString.substring(
