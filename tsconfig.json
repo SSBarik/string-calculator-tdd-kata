@@ -10,12 +10,13 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "sourceMap": true,
     "types": ["node", "jest"],
     "baseUrl": ".",
     "paths": {
       "*": ["src/*"]
     }
   },
-  "include": ["src", "tests"],
+  "include": ["src"],
   "exclude": ["dist", "node_modules"]
 }
