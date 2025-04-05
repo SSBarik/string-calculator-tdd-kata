@@ -11,3 +11,7 @@ test("returns the number for string with single number", () => {
 test("returns sum of two numbers", () => {
   expect(new StringCalculator().add("1, 5")).toBe(6);
 });
+
+test("returns sum of multiple comma-separated numbers", () => {
+  expect(new StringCalculator().add("1, 2, 3, 4, 5")).toBe(15);
+});
