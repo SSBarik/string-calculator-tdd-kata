@@ -35,3 +35,14 @@ test("throws error on negative numbers", () => {
     "negative number(s) not allowed: -2,-3,-4"
   );
 });
+
+test("tracks how many times add() was invoked", () => {
+  const stringCalculator = new StringCalculator();
+  expect(stringCalculator.getCalledCount()).toBe(0);
+
+  stringCalculator.add("1,2");
+  expect(stringCalculator.getCalledCount()).toBe(1);
+
+  stringCalculator.add("3,4");
+  expect(stringCalculator.getCalledCount()).toBe(2);
+});
