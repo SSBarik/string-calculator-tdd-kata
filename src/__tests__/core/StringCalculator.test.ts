@@ -23,3 +23,9 @@ test("handles new lines between numbers", () => {
 test("handles custom delimiter using // syntax", () => {
   expect(new StringCalculator().add("//;\n1;2")).toBe(3);
 });
+
+test("throws on negative numbers", () => {
+  expect(() => new StringCalculator().add("1,-3")).toThrow(
+    "negative numbers not allowed: -3"
+  );
+});
