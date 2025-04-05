@@ -1,7 +1,7 @@
 export class StringCalculator {
-  private delimiterPrefix: string = "//";
-  private delimiterSuffix: string = "\n";
-  private defaultDelimiterRegex: RegExp = new RegExp(/,|\n/);
+  private static readonly DELIMITER_PREFIX = "//";
+  private static readonly DELIMITER_SUFFIX = "\n";
+  private static readonly DEFAULT_DELIMITER_REGEX = /,|\n/;
 
   add(numberString: string): number {
     if (!numberString) return 0;
@@ -13,27 +13,29 @@ export class StringCalculator {
   }
 
   private hasCustomDelimiter(numberString: string): boolean {
-    return numberString.startsWith(this.delimiterPrefix);
+    return numberString.startsWith(StringCalculator.DELIMITER_PREFIX);
   }
 
   private getCustomDelimiter(numberString: string): string {
-    const delimiterEndIndex = numberString.indexOf(this.delimiterSuffix);
+    const delimiterEndIndex = numberString.indexOf(
+      StringCalculator.DELIMITER_PREFIX
+    );
 
     return numberString.substring(
-      this.delimiterPrefix.length,
+      StringCalculator.DELIMITER_PREFIX.length,
       delimiterEndIndex
     );
   }
 
   private extractNumbers(numberString: string): number[] {
-    let delimiterRegex = this.defaultDelimiterRegex;
+    let delimiterRegex = StringCalculator.DEFAULT_DELIMITER_REGEX;
 
     if (this.hasCustomDelimiter(numberString)) {
       const customDelimiter = this.getCustomDelimiter(numberString);
       delimiterRegex = new RegExp(customDelimiter);
 
       numberString = numberString.slice(
-        numberString.indexOf(this.delimiterSuffix) + 1
+        numberString.indexOf(StringCalculator.DELIMITER_SUFFIX) + 1
       );
     }
 
