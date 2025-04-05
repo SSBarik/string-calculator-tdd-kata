@@ -12,7 +12,9 @@ export class StringCalculator {
     const numbers = this.extractNumbers(numberString);
     this.validate(numbers);
 
-    const sum = numbers.reduce((acc, num) => acc + num, 0);
+    const sum = numbers
+      .filter((num) => num <= 1000)
+      .reduce((acc, num) => acc + num, 0);
 
     return sum;
   }
