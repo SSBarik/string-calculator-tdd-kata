@@ -7,11 +7,8 @@ export class StringCalculator {
     if (!numberString) return 0;
 
     const numbers = this.extractNumbers(numberString);
-    const negativeNumbers = numbers.filter((n) => n < 0);
+    this.validate(numbers);
 
-    if (negativeNumbers.length) {
-      throw new Error("negative number(s) not allowed: " + negativeNumbers);
-    }
     const sum = numbers.reduce((acc, num) => acc + num, 0);
 
     return sum;
@@ -45,5 +42,12 @@ export class StringCalculator {
     }
 
     return numberString.split(delimiterRegex).map(Number);
+  }
+
+  private validate(numbers: number[]): void {
+    const negativeNumbers = numbers.filter((n) => n < 0);
+    if (negativeNumbers.length) {
+      throw new Error("negative number(s) not allowed: " + negativeNumbers);
+    }
   }
 }
