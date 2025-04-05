@@ -24,8 +24,14 @@ test("handles custom delimiter using // syntax", () => {
   expect(new StringCalculator().add("//;\n1;2")).toBe(3);
 });
 
-test("throws on negative numbers", () => {
+test("throws error on single negative number", () => {
   expect(() => new StringCalculator().add("1,-3")).toThrow(
-    "negative numbers not allowed: -3"
+    "negative number(s) not allowed: -3"
+  );
+});
+
+test("throws error on negative numbers", () => {
+  expect(() => new StringCalculator().add("1,-2,-3,-4")).toThrow(
+    "negative number(s) not allowed: -2,-3,-4"
   );
 });
