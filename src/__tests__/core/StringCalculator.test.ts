@@ -16,6 +16,6 @@ test("returns sum of multiple comma-separated numbers", () => {
   expect(new StringCalculator().add("1, 2, 3, 4, 5")).toBe(15);
 });
 
-test("", () => {
+test("handles new lines between numbers", () => {
   expect(new StringCalculator().add("1\n2,3")).toBe(6);
 });
