@@ -2,8 +2,11 @@ export class StringCalculator {
   private static readonly DELIMITER_PREFIX = "//";
   private static readonly DELIMITER_SUFFIX = "\n";
   private static readonly DEFAULT_DELIMITER_REGEX = /,|\n/;
+  private calledCount: number = 0;
 
   add(numberString: string): number {
+    this.calledCount++;
+
     if (!numberString) return 0;
 
     const numbers = this.extractNumbers(numberString);
@@ -12,6 +15,10 @@ export class StringCalculator {
     const sum = numbers.reduce((acc, num) => acc + num, 0);
 
     return sum;
+  }
+
+  getCalledCount() {
+    return this.calledCount;
   }
 
   private hasCustomDelimiter(numberString: string): boolean {
