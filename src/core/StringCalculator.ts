@@ -11,7 +11,7 @@ export class StringCalculator {
   add(numberString: string): number {
     this.calledCount++;
 
-    if (!numberString) return 0;
+    if (!numberString.trim()) return 0;
 
     const numbers = this.extractNumbers(numberString);
     NumberValidator.validateNegativeNumbers(numbers);
