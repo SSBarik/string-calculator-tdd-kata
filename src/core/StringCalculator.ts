@@ -1,3 +1,5 @@
+import { escapeRegexSpecialChars } from "../utils/regexUtils";
+
 export class StringCalculator {
   private static readonly DELIMITER_PREFIX = "//";
   private static readonly DELIMITER_SUFFIX = "\n";
@@ -98,13 +100,9 @@ export class StringCalculator {
 
   private getDelimiterRegex(delimiters: string[]): RegExp {
     const regexSafeDelimiters = delimiters
-      .map(this.escapeRegexSpecialChars)
+      .map(escapeRegexSpecialChars)
       .join("|");
     return new RegExp(regexSafeDelimiters);
-  }
-
-  private escapeRegexSpecialChars(delimiter: string): string {
-    return delimiter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
   private validateNegativeNumbers(numbers: number[]): void {
