@@ -1,6 +1,6 @@
 import {
   DEFAULT_DELIMITER_REGEX,
-  VALID_NUMBER_MAX,
+  MAX_VALID_NUMBER,
 } from "../constants/calculator";
 import { DelimiterParser } from "./DelimiterParser";
 import { NumberValidator } from "./NumberValidator";
@@ -17,7 +17,7 @@ export class StringCalculator {
     NumberValidator.validateNegativeNumbers(numbers);
 
     const sum = numbers
-      .filter((num) => num <= VALID_NUMBER_MAX)
+      .filter((num) => num <= MAX_VALID_NUMBER)
       .reduce((acc, num) => acc + num, 0);
 
     return sum;
