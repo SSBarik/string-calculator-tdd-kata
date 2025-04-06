@@ -12,7 +12,7 @@ export class StringCalculator {
     if (!numberString) return 0;
 
     const numbers = this.extractNumbers(numberString);
-    this.validate(numbers);
+    this.validateNegativeNumbers(numbers);
 
     const sum = numbers
       .filter((num) => num <= StringCalculator.VALID_NUMBER_MAX)
@@ -107,7 +107,7 @@ export class StringCalculator {
     return delimiter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
-  private validate(numbers: number[]): void {
+  private validateNegativeNumbers(numbers: number[]): void {
     const negativeNumbers: number[] = numbers.filter((n) => n < 0);
     if (negativeNumbers.length) {
       throw new Error("negative number(s) not allowed: " + negativeNumbers);
