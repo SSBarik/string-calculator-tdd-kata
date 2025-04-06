@@ -27,27 +27,64 @@ export class StringCalculator {
     return numberString.startsWith(StringCalculator.DELIMITER_PREFIX);
   }
 
-  private getCustomDelimiter(numberString: string): string {
+  private getCustomDelimiters(numberString: string): {
+    customDelimiters: string[];
+    numbers: string;
+  } {
     const delimiterEndIndex = numberString.indexOf(
       StringCalculator.DELIMITER_SUFFIX
     );
 
-    return numberString.substring(
+    const delimiterSubstring = numberString.substring(
       StringCalculator.DELIMITER_PREFIX.length,
       delimiterEndIndex
     );
-  }
 
+    let customDelimiters: string[] = [];
+
+    if (
+      delimiterSubstring.startsWith("[") &&
+      delimiterSubstring.endsWith("]")
+    ) {
+      let i = 0;
+
+      while (i < delimiterSubstring.length) {
+        if (delimiterSubstring[i] === "[") {
+          let j = i + 1;
+          let delimiter = "";
+
+          while (delimiterSubstring[j] !== "]") {
+            delimiter += delimiterSubstring[j];
+            j++;
+          }
+
+          customDelimiters.push(delimiter);
+          i = j + 1;
+        } else {
+          i++;
+        }
+      }
+    } else {
+      customDelimiters = [delimiterSubstring];
+    }
+
+    const numbers = numberString.slice(delimiterEndIndex + 1);
+    return { customDelimiters, numbers };
+  }
   private extractNumbers(numberString: string): number[] {
     let delimiterRegex = StringCalculator.DEFAULT_DELIMITER_REGEX;
 
     if (this.hasCustomDelimiter(numberString)) {
-      const customDelimiter = this.getCustomDelimiter(numberString);
-      delimiterRegex = new RegExp(customDelimiter);
+      const { customDelimiters, numbers } =
+        this.getCustomDelimiters(numberString);
 
-      numberString = numberString.slice(
-        numberString.indexOf(StringCalculator.DELIMITER_SUFFIX) + 1
+      delimiterRegex = new RegExp(
+        customDelimiters
+          .map((d) => d.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+          .join("|")
       );
+
+      numberString = numbers;
     }
 
     return numberString.split(delimiterRegex).map(Number);
