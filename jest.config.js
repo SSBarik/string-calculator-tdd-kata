@@ -5,6 +5,11 @@ module.exports = {
   roots: ["<rootDir>/src"],
   moduleFileExtensions: ["ts", "js", "json"],
   moduleDirectories: ["node_modules", "src"],
+  moduleNameMapper: {
+    "^@core/(.*)$": "<rootDir>/src/core/$1",
+    "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@constants/(.*)$": "<rootDir>/src/constants/$1",
+  },
   testMatch: ["**/__tests__/**/*.test.ts"],
   collectCoverage: true,
   coverageDirectory: "coverage",
