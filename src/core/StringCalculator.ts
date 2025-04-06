@@ -1,8 +1,5 @@
-import {
-  DEFAULT_DELIMITER_REGEX,
-  MAX_VALID_NUMBER,
-} from "../constants/calculator";
-import { DelimiterParser } from "./DelimiterParser";
+import { MAX_VALID_NUMBER } from "../constants/calculator";
+import { NumberExtractor } from "./NumberExtractor";
 import { NumberValidator } from "./NumberValidator";
 
 export class StringCalculator {
@@ -13,7 +10,7 @@ export class StringCalculator {
 
     if (!numberString.trim()) return 0;
 
-    const numbers = this.extractNumbers(numberString);
+    const numbers = NumberExtractor.extract(numberString);
     NumberValidator.validateNegativeNumbers(numbers);
 
     const sum = numbers
@@ -25,18 +22,5 @@ export class StringCalculator {
 
   getCalledCount(): number {
     return this.calledCount;
-  }
-
-  private extractNumbers(input: string): number[] {
-    let delimiterRegex = DEFAULT_DELIMITER_REGEX;
-
-    if (DelimiterParser.hasCustomDelimiter(input)) {
-      const { customDelimiters, numbers } =
-        DelimiterParser.extractCustomDelimiters(input);
-      delimiterRegex = DelimiterParser.getDelimiterRegex(customDelimiters);
-      input = numbers;
-    }
-
-    return input.split(delimiterRegex).map(Number);
   }
 }
