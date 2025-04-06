@@ -23,7 +23,7 @@ export class StringCalculator {
     return sum;
   }
 
-  getCalledCount() {
+  getCalledCount(): number {
     return this.calledCount;
   }
 
