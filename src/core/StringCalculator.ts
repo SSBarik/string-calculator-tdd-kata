@@ -2,6 +2,8 @@ export class StringCalculator {
   private static readonly DELIMITER_PREFIX = "//";
   private static readonly DELIMITER_SUFFIX = "\n";
   private static readonly DEFAULT_DELIMITER_REGEX = /,|\n/;
+  private static readonly VALID_NUMBER_MAX = 1000;
+
   private calledCount: number = 0;
 
   add(numberString: string): number {
@@ -13,7 +15,7 @@ export class StringCalculator {
     this.validate(numbers);
 
     const sum = numbers
-      .filter((num) => num <= 1000)
+      .filter((num) => num <= StringCalculator.VALID_NUMBER_MAX)
       .reduce((acc, num) => acc + num, 0);
 
     return sum;
