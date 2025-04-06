@@ -1,6 +1,6 @@
-import { MAX_VALID_NUMBER } from "../constants/calculator";
-import { NumberExtractor } from "./NumberExtractor";
-import { NumberValidator } from "./NumberValidator";
+import { MAX_VALID_NUMBER } from "@constants/calculator";
+import { NumberExtractor } from "@core/NumberExtractor";
+import { NumberValidator } from "@core/NumberValidator";
 
 export class StringCalculator {
   private calledCount: number = 0;

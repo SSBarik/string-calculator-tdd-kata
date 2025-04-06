@@ -1,4 +1,4 @@
-import { DelimiterParser } from "../../core/DelimiterParser";
+import { DelimiterParser } from "@core/DelimiterParser";
 
 describe("DelimiterParser", () => {
   test("detects custom delimiter syntax", () => {

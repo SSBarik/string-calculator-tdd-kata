@@ -1,4 +1,4 @@
-import { tokenizeAndParseNumbers } from "../../utils/numberParser";
+import { tokenizeAndParseNumbers } from "@utils/numberParser";
 
 describe("tokenizeAndParseNumbers", () => {
   test("splits and parses numbers with default delimiter", () => {

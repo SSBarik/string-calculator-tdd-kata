@@ -1,6 +1,6 @@
-import { DEFAULT_DELIMITER_REGEX } from "../constants/calculator";
-import { DelimiterParser } from "./DelimiterParser";
-import { tokenizeAndParseNumbers } from "../utils/numberParser";
+import { DEFAULT_DELIMITER_REGEX } from "@constants/calculator";
+import { DelimiterParser } from "@core/DelimiterParser";
+import { tokenizeAndParseNumbers } from "@utils/numberParser";
 
 export class NumberExtractor {
   static extract(

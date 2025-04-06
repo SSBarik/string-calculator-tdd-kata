@@ -1,4 +1,4 @@
-import { NumberExtractor } from "../../core/NumberExtractor";
+import { NumberExtractor } from "@core/NumberExtractor";
 
 describe("NumberExtractor", () => {
   test("extracts numbers using default delimiter", () => {

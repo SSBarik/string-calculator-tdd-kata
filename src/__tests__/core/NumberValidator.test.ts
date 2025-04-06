@@ -1,4 +1,4 @@
-import { NumberValidator } from "../../core/NumberValidator";
+import { NumberValidator } from "@core/NumberValidator";
 
 describe("NumberValidator", () => {
   test("throws on single negative number", () => {

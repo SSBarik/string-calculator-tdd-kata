@@ -1,5 +1,5 @@
-import { DELIMITER_PREFIX, DELIMITER_SUFFIX } from "../constants/calculator";
-import { escapeRegexSpecialChars } from "../utils/regexUtils";
+import { DELIMITER_PREFIX, DELIMITER_SUFFIX } from "@constants/calculator";
+import { escapeRegexSpecialChars } from "@utils/regexUtils";
 
 export class DelimiterParser {
   static hasCustomDelimiter(numberString: string): boolean {
