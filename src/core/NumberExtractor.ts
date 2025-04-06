@@ -3,7 +3,10 @@ import { DelimiterParser } from "./DelimiterParser";
 import { tokenizeAndParseNumbers } from "../utils/numberParser";
 
 export class NumberExtractor {
-  static extract(numberString: string): number[] {
+  static extract(
+    numberString: string,
+    maxAllowedNumber: number = Infinity
+  ): number[] {
     let delimiterRegex = DEFAULT_DELIMITER_REGEX;
 
     if (DelimiterParser.hasCustomDelimiter(numberString)) {
@@ -13,6 +16,8 @@ export class NumberExtractor {
       numberString = numbers;
     }
 
-    return tokenizeAndParseNumbers(numberString, delimiterRegex);
+    const allNumbers = tokenizeAndParseNumbers(numberString, delimiterRegex);
+
+    return allNumbers.filter((num) => num <= maxAllowedNumber);
   }
 }

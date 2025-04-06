@@ -10,17 +10,17 @@ export class StringCalculator {
 
     if (!numberString.trim()) return 0;
 
-    const numbers = NumberExtractor.extract(numberString);
+    const numbers = NumberExtractor.extract(numberString, MAX_VALID_NUMBER);
     NumberValidator.validateNegativeNumbers(numbers);
 
-    const sum = numbers
-      .filter((num) => num <= MAX_VALID_NUMBER)
-      .reduce((acc, num) => acc + num, 0);
-
-    return sum;
+    return this.calculateSum(numbers);
   }
 
   getCalledCount(): number {
     return this.calledCount;
+  }
+
+  private calculateSum(numbers: number[]): number {
+    return numbers.reduce((acc, num) => acc + num, 0);
   }
 }
