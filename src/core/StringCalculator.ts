@@ -87,17 +87,22 @@ export class StringCalculator {
     if (this.hasCustomDelimiter(numberString)) {
       const { customDelimiters, numbers } =
         this.getCustomDelimiters(numberString);
-
-      delimiterRegex = new RegExp(
-        customDelimiters
-          .map((d) => d.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-          .join("|")
-      );
-
+      delimiterRegex = this.getDelimiterRegex(customDelimiters);
       numberString = numbers;
     }
 
     return numberString.split(delimiterRegex).map(Number);
+  }
+
+  private getDelimiterRegex(delimiters: string[]): RegExp {
+    const regexSafeDelimiters = delimiters
+      .map(this.escapeRegexSpecialChars)
+      .join("|");
+    return new RegExp(regexSafeDelimiters);
+  }
+
+  private escapeRegexSpecialChars(delimiter: string): string {
+    return delimiter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
   private validate(numbers: number[]): void {
