@@ -40,37 +40,47 @@ export class StringCalculator {
       delimiterEndIndex
     );
 
-    let customDelimiters: string[] = [];
-
-    if (
-      delimiterSubstring.startsWith("[") &&
-      delimiterSubstring.endsWith("]")
-    ) {
-      let i = 0;
-
-      while (i < delimiterSubstring.length) {
-        if (delimiterSubstring[i] === "[") {
-          let j = i + 1;
-          let delimiter = "";
-
-          while (delimiterSubstring[j] !== "]") {
-            delimiter += delimiterSubstring[j];
-            j++;
-          }
-
-          customDelimiters.push(delimiter);
-          i = j + 1;
-        } else {
-          i++;
-        }
-      }
-    } else {
-      customDelimiters = [delimiterSubstring];
-    }
-
+    const customDelimiters = this.extractDelimiters(delimiterSubstring);
     const numbers = numberString.slice(delimiterEndIndex + 1);
+
     return { customDelimiters, numbers };
   }
+
+  private extractDelimiters(delimiterSubstring: string): string[] {
+    if (this.hasMultipleDelimiters(delimiterSubstring)) {
+      return this.extractMultipleDelimiters(delimiterSubstring);
+    }
+
+    return [delimiterSubstring];
+  }
+
+  private hasMultipleDelimiters(str: string): boolean {
+    return str.startsWith("[") && str.endsWith("]");
+  }
+
+  private extractMultipleDelimiters(str: string): string[] {
+    const delimiters: string[] = [];
+    let i = 0;
+
+    while (i < str.length) {
+      if (str[i] === "[") {
+        let j = i + 1;
+        let delimiter = "";
+
+        while (str[j] !== "]") {
+          delimiter += str[j++];
+        }
+
+        delimiters.push(delimiter);
+        i = j + 1;
+      } else {
+        i++;
+      }
+    }
+
+    return delimiters;
+  }
+
   private extractNumbers(numberString: string): number[] {
     let delimiterRegex = StringCalculator.DEFAULT_DELIMITER_REGEX;
 
