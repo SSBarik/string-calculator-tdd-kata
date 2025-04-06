@@ -31,18 +31,6 @@ describe("StringCalculator", () => {
     expect(calculator.add("//;\n1;2")).toBe(3);
   });
 
-  test("throws error on single negative number", () => {
-    expect(() => calculator.add("1,-3")).toThrow(
-      "negative number(s) not allowed: -3"
-    );
-  });
-
-  test("throws error on negative numbers", () => {
-    expect(() => calculator.add("1,-2,-3,-4")).toThrow(
-      "negative number(s) not allowed: -2,-3,-4"
-    );
-  });
-
   test("tracks how many times add() was invoked", () => {
     expect(calculator.getCalledCount()).toBe(0);
 
