@@ -3,6 +3,7 @@ import {
   VALID_NUMBER_MAX,
 } from "../constants/calculator";
 import { DelimiterParser } from "./DelimiterParser";
+import { NumberValidator } from "./NumberValidator";
 
 export class StringCalculator {
   private calledCount: number = 0;
@@ -13,7 +14,7 @@ export class StringCalculator {
     if (!numberString) return 0;
 
     const numbers = this.extractNumbers(numberString);
-    this.validateNegativeNumbers(numbers);
+    NumberValidator.validateNegativeNumbers(numbers);
 
     const sum = numbers
       .filter((num) => num <= VALID_NUMBER_MAX)
@@ -37,12 +38,5 @@ export class StringCalculator {
     }
 
     return input.split(delimiterRegex).map(Number);
-  }
-
-  private validateNegativeNumbers(numbers: number[]): void {
-    const negativeNumbers: number[] = numbers.filter((n) => n < 0);
-    if (negativeNumbers.length) {
-      throw new Error("negative number(s) not allowed: " + negativeNumbers);
-    }
   }
 }
