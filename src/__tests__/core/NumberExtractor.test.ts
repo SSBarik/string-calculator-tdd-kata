@@ -45,4 +45,14 @@ describe("NumberExtractor", () => {
     const result = NumberExtractor.extract(" 1 , 2 , 3 ");
     expect(result).toEqual([1, 2, 3]);
   });
+
+  test("ignores numbers greater than maxAllowedNumber", () => {
+    const result = NumberExtractor.extract("2,1001,3", 1000);
+    expect(result).toEqual([2, 3]);
+  });
+
+  test("includes all numbers if maxAllowedNumber is Infinity", () => {
+    const result = NumberExtractor.extract("2,1001,3", Infinity);
+    expect(result).toEqual([2, 1001, 3]);
+  });
 });
