@@ -1,11 +1,12 @@
+import {
+  DELIMITER_PREFIX,
+  DELIMITER_SUFFIX,
+  DEFAULT_DELIMITER_REGEX,
+  VALID_NUMBER_MAX,
+} from "../constants/calculator";
 import { escapeRegexSpecialChars } from "../utils/regexUtils";
 
 export class StringCalculator {
-  private static readonly DELIMITER_PREFIX = "//";
-  private static readonly DELIMITER_SUFFIX = "\n";
-  private static readonly DEFAULT_DELIMITER_REGEX = /,|\n/;
-  private static readonly VALID_NUMBER_MAX = 1000;
-
   private calledCount: number = 0;
 
   add(numberString: string): number {
@@ -17,7 +18,7 @@ export class StringCalculator {
     this.validateNegativeNumbers(numbers);
 
     const sum = numbers
-      .filter((num) => num <= StringCalculator.VALID_NUMBER_MAX)
+      .filter((num) => num <= VALID_NUMBER_MAX)
       .reduce((acc, num) => acc + num, 0);
 
     return sum;
@@ -28,19 +29,17 @@ export class StringCalculator {
   }
 
   private hasCustomDelimiter(numberString: string): boolean {
-    return numberString.startsWith(StringCalculator.DELIMITER_PREFIX);
+    return numberString.startsWith(DELIMITER_PREFIX);
   }
 
   private getCustomDelimiters(numberString: string): {
     customDelimiters: string[];
     numbers: string;
   } {
-    const delimiterEndIndex = numberString.indexOf(
-      StringCalculator.DELIMITER_SUFFIX
-    );
+    const delimiterEndIndex = numberString.indexOf(DELIMITER_SUFFIX);
 
     const delimiterSubstring = numberString.substring(
-      StringCalculator.DELIMITER_PREFIX.length,
+      DELIMITER_PREFIX.length,
       delimiterEndIndex
     );
 
@@ -86,7 +85,7 @@ export class StringCalculator {
   }
 
   private extractNumbers(numberString: string): number[] {
-    let delimiterRegex = StringCalculator.DEFAULT_DELIMITER_REGEX;
+    let delimiterRegex = DEFAULT_DELIMITER_REGEX;
 
     if (this.hasCustomDelimiter(numberString)) {
       const { customDelimiters, numbers } =
